@@ -17,6 +17,7 @@ function randomLace() {
   var rand;
   var lastRand;
   var veryFirstRand;
+  var numNearbyRows = 0;
   var tieOffPoints = [];
 
   function savesTieOff() {
@@ -82,14 +83,14 @@ function randomLace() {
       veryFirstRand = rand;
       tieOffPoints = [];
       // create array of surrounding indices of interest...
-      if (rand % 2 == true) { // even
-        for (var i = -2; i <= 3; i++) {
+      if (rand % 2 == 0) { // even
+        for (var i = -2 * numNearbyRows; i <= 2 * numNearbyRows + 1; i++) {
           if (rand + i >= 0 && rand + i < 16) {
             tieOffPoints.push(rand + i);
           }
         }
       } else {
-        for (var i = -3; i <= 2; i++) {
+        for (var i = -2 * numNearbyRows - 1; i <= 2 * numNearbyRows; i++) {
           if (rand + i >= 0 && rand + i < 16) {
             tieOffPoints.push(rand + i);
           }
