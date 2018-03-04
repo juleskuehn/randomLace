@@ -5,7 +5,7 @@
 
 // Constraint: hole can only be used once
 // 
-function randomLace() {
+function randomLace(numNearbyRows, maxDepth, mustAlternateSides) {
 
   // 65..80
   // 97..112
@@ -17,11 +17,9 @@ function randomLace() {
   var rand;
   var lastRand;
   var veryFirstRand;
-  var numNearbyRows = 0;
   var tieOffPoints = [];
 
   function savesTieOff() {
-    console.log("Tie Off Points for ", rand, ": ", tieOffPoints);
     var freeNearbyHoles = 0;
     var isLastMove = outString.length === 15;
     if (isLastMove) return true;
@@ -49,6 +47,19 @@ function randomLace() {
     return true;
   }
 
+  function withinMaxDepth() {
+    if (maxDepth === undefined || lastRand === undefined || rand === undefined) {
+      return true;
+    }
+    var curDepth = Math.floor(rand / 2);
+    var lastDepth = Math.floor(lastRand / 2);
+    console.log("curDepth",curDepth,"lastDepth",lastDepth);
+    if (Math.abs(curDepth - lastDepth) > maxDepth) {
+      return false;
+    }
+    return true;
+  }
+
 
   for (var j = 0; j < 16; j++) {
 
@@ -66,11 +77,17 @@ function randomLace() {
         lastUpperCaseFlag == upperCaseFlag &&
         lastRand % 2 == rand % 2;
 
+      alternatesSides =
+        mustAlternateSides === undefined
+        || (rand + lastRand) % 2 === 1;
+
       // check candidate number for qualification
       conditionIfEverythingOk =
         usedHoles[rand] === undefined
         && !twoHolesSameSideSameOut
-        && savesTieOff();
+        && savesTieOff()
+        && withinMaxDepth()
+        && alternatesSides;
 
       if (conditionIfEverythingOk) {
         // we've got a new candidate!
