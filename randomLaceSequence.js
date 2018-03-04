@@ -25,7 +25,7 @@ function randomLace() {
     var isLastMove = outString.length === 15;
     if (isLastMove) return true;
     var usingTieOffPoint = false;
-    
+
     // everything is ok if not attempting to use a tieOffPoint
     for (var i = 0; i < tieOffPoints.length; i++) {
       if (rand === tieOffPoints[i]) {
@@ -56,10 +56,10 @@ function randomLace() {
     for (; ;) {
 
       rand = Math.floor(Math.random() * 16);
+      upperCaseFlag = Math.floor(Math.random() * 2);
       // If first number, no constraints need to be checked
       if (veryFirstRand === undefined) break;
 
-      upperCaseFlag = Math.floor(Math.random() * 2);
 
       twoHolesSameSideSameOut =
         lastUpperCaseFlag == upperCaseFlag &&
