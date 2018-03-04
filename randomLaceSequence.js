@@ -12,10 +12,14 @@ function randomLace() {
 
   var usedHoles = new Array(16);
   var outString = "";
+  var lastUpperCaseFlag;
+  var upperCaseFlag;
+  var rand;
+  var lastRand;
 
   for (var i = 0; i < 16; i++) {
 
-    var rand = Math.floor(Math.random() * 16);
+    rand = Math.floor(Math.random() * 16);
     // Constraint 1
     for(;;) {
       rand = Math.floor(Math.random() * 16);
@@ -26,11 +30,14 @@ function randomLace() {
     }
 
     // Constraint 2
-    
+    upperCaseFlag = Math.floor(Math.random() * 2);
+    twoHolesSameSideSameOut = lastUpperCaseFlag === upperCaseFlag && Math.floor(lastRand / 2) === Math.floor(rand / 2);
 
 
+
+
+    lastUpperCaseFlag = upperCaseFlag;
     rand += 65;
-    var upperCaseFlag = Math.floor(Math.random() * 2);
     if (upperCaseFlag) {
       rand += 32;
     }
