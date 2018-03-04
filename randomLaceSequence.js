@@ -23,20 +23,27 @@ function randomLace() {
     // Constraint 1
     for(;;) {
       rand = Math.floor(Math.random() * 16);
-      if (usedHoles[rand] === undefined) {
-        usedHoles[rand] = true;
+      // Constraint 2
+      upperCaseFlag = Math.floor(Math.random() * 2);
+  
+      twoHolesSameSideSameOut =
+        lastUpperCaseFlag == upperCaseFlag &&
+        lastRand % 2 == rand % 2;
+
+      conditionIfEverythingOk =
+        usedHoles[rand] === undefined
+        && !twoHolesSameSideSameOut;
+
+      if (conditionIfEverythingOk) {
         break;
       }
     }
 
-    // Constraint 2
-    upperCaseFlag = Math.floor(Math.random() * 2);
-    twoHolesSameSideSameOut = lastUpperCaseFlag === upperCaseFlag && Math.floor(lastRand / 2) === Math.floor(rand / 2);
-
-
-
-
+    // stuff that happens if we're good to go
     lastUpperCaseFlag = upperCaseFlag;
+    lastRand = rand;
+    usedHoles[rand] = true;
+
     rand += 65;
     if (upperCaseFlag) {
       rand += 32;
