@@ -1,3 +1,7 @@
+// by Mike Kuehn and Joe Thibodeau
+// to be pasted into https://www.fieggen.com/shoelace/create-a-lace.htm
+// Paste the contents of this file in the console
+
 
 // Returns a string of 16 characters a..p and A..P
 // Upper case indicates lacing from the outside to the inside of the hole
@@ -127,3 +131,5 @@ function randomLace(numNearbyRows, maxDepth, mustAlternateSides) {
   }
   return outString;
 }
+
+replayPath(randomLace(8, 8, false));
